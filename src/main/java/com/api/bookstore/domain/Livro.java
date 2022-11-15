@@ -11,17 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "livro")
-public class Livro implements Serializable{
+public class Livro implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
 	private String nomeAutor;
 	private String texto;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
@@ -95,5 +95,5 @@ public class Livro implements Serializable{
 		Livro other = (Livro) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 }
