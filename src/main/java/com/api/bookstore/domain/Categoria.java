@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "categoria")
@@ -24,7 +28,8 @@ public class Categoria implements Serializable {
 	private String nome;
 	private String descricao;
 
-	@OneToMany(mappedBy = "categoria")
+	@JsonIgnoreProperties("categoria")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {
