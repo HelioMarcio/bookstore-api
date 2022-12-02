@@ -1,28 +1,34 @@
 package com.api.bookstore.resources.exceptions;
 
-public class StandardError {
+import java.io.Serializable;
+import java.time.Instant;
 
-	private Long timestamp;
+public class StandardError implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	private Instant timestamp;
 	private Integer status;
 	private String error;
+	private String message;
+	private String path;
 
 	public StandardError() {
 		super();
-
 	}
 
-	public StandardError(Long timestamp, Integer status, String error) {
+	public StandardError(Instant timestamp, Integer status, String error) {
 		super();
 		this.timestamp = timestamp;
 		this.status = status;
 		this.error = error;
 	}
 
-	public Long getTimestamp() {
+	public Instant getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(Long timestamp) {
+	public void setTimestamp(Instant timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -40,6 +46,22 @@ public class StandardError {
 
 	public void setError(String error) {
 		this.error = error;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }
