@@ -7,12 +7,15 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.api.bookstore.domain.Categoria;
 import com.api.bookstore.dtos.CategoriaDTO;
 import com.api.bookstore.repositories.CategoriaRepository;
+import com.api.bookstore.service.exception.DataViolationException;
 import com.api.bookstore.service.exception.ObjectNotFoundException;
 
 @Service
@@ -56,4 +59,16 @@ public class CategoriaService {
 			throw new ObjectNotFoundException("Objeto não encontrado: " + id + ", Tipo: " + Categoria.class.getName());
 		}
 	}
+
+	public void delete(Integer id) {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ObjectNotFoundException("Objeto não encontrado: " + id + ", Tipo: " + Categoria.class.getName());
+		} catch (DataIntegrityViolationException e) {
+            throw new DataViolationException("Objeto não pode ser removido. Possui items associados.");
+		}
+
+	}
+
 }

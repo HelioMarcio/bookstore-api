@@ -28,8 +28,8 @@ public class Categoria implements Serializable {
 	private String nome;
 	private String descricao;
 
-	@JsonIgnoreProperties("categoria")
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnoreProperties
+	@OneToMany(mappedBy = "categoria"/*, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true*/)
 	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {
@@ -37,6 +37,7 @@ public class Categoria implements Serializable {
 	}
 
 	public Categoria(Integer id, String nome, String descricao) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
