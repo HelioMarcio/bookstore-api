@@ -1,14 +1,14 @@
 package com.api.bookstore.service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,9 +33,9 @@ public class CategoriaService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<CategoriaDTO> findAll() {
-		List<Categoria> list = repository.findAll();
-		return list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+	public Page<CategoriaDTO> findAllPaged(PageRequest pageRequest) {
+		Page<Categoria> list = repository.findAll(pageRequest);
+		return list.map(obj -> new CategoriaDTO(obj));
 	}
 
 	@Transactional
@@ -66,7 +66,7 @@ public class CategoriaService {
 		} catch (EmptyResultDataAccessException e) {
 			throw new ObjectNotFoundException("Objeto não encontrado: " + id + ", Tipo: " + Categoria.class.getName());
 		} catch (DataIntegrityViolationException e) {
-            throw new DataViolationException("Objeto não pode ser removido. Possui items associados.");
+			throw new DataViolationException("Objeto não pode ser removido. Possui items associados.");
 		}
 
 	}
