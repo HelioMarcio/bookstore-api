@@ -20,19 +20,19 @@ public class DBService {
 	
 	public void instanciaBaseDeDados() {
 		Categoria cat1 = new Categoria(null, "Informática", "Livros de TI");
-		Categoria cat2 = new Categoria(null, "Ficção Científica", "Livros de Ficção");
-		Categoria cat3 = new Categoria(null, "Biografia", "Livros Biográficos");
+		Categoria cat2 = new Categoria(null, "Ciência", "Ficção Científica");
+		Categoria cat3 = new Categoria(null, "Biografia", "Livros de Biografia");
 
-		Livro l1 = new Livro(null, "Código Limpo", "Robert Martin", "Lorem Ipsum", cat1);
-		Livro l2 = new Livro(null, "Engenharia de Software", "Louis V. Gerstner", "Lorem Ipsum", cat1);
-		Livro l3 = new Livro(null, "A Máquina do Tempo", "H.G. Wells", "Lorem Ipsum", cat2);
-		Livro l4 = new Livro(null, "A Guerra dos Mundos", "H.G. Wells", "Lorem Ipsum", cat2);
-		Livro l5 = new Livro(null, "Eu, Robô", "Isaac Asimov", "Lorem Ipsum", cat2);
+		Livro l1 = new Livro(null, "Clean Code", "Robert Martin", "Fazendo um código limpo", cat1);
+		Livro l2 = new Livro(null, "Engenharia de Software", "Louis V.", "Livro de nerd engenheiro", cat1);
+		Livro l3 = new Livro(null, "The Time Machine", "Robert Martin", "As máquinas estão sem tempo", cat2);
+		Livro l4 = new Livro(null, "The War of te Worlds", "H.G. Wells", "Livro da guerra dos mundos", cat2);
+		Livro l5 = new Livro(null, "I, Robot", "Isaac Asimov", "Livro do maninho robot", cat2);
 
-	    cat1.getLivros().addAll(Arrays.asList(l1, l2));
-	    cat2.getLivros().addAll(Arrays.asList(l3, l4, l5));
-	    
-	    this.categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
-	    this.livroRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
+		cat1.getLivros().addAll(Arrays.asList(l1, l2));
+		cat2.getLivros().addAll(Arrays.asList(l3, l4, l5));
+
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		livroRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
 	}
 }

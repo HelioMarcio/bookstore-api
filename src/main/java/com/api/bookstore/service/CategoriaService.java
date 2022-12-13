@@ -29,7 +29,7 @@ public class CategoriaService {
 		Optional<Categoria> obj = repository.findById(id);
 		Categoria entity = obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
-		return new CategoriaDTO(entity);
+		return new CategoriaDTO(entity, entity.getLivros());
 	}
 
 	@Transactional(readOnly = true)

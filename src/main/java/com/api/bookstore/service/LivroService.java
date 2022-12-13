@@ -1,9 +1,10 @@
 package com.api.bookstore.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +19,9 @@ public class LivroService {
 	@Autowired
 	private LivroRepository repository;
 
-	@Autowired
-	private CategoriaService categoriaService;
+	/*
+	 * @Autowired private CategoriaService categoriaService;
+	 */
 
 	@Transactional(readOnly = true)
 	public LivroDto findById(Integer id) {
@@ -30,8 +32,12 @@ public class LivroService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Livro> findAll(Integer id_cat) {
-		categoriaService.findById(id_cat);
-		return repository.findAllByCategoria(id_cat);
+	public Page<LivroDto> findAllPaged(PageRequest pageRequest) {
+		Page<Livro> list = repository.findAll(pageRequest);
+		return list.map(obj -> new LivroDto(obj));
+		/*
+		 * categoriaService.findById(id_cat); return
+		 * repository.findAllByCategoria(id_cat);
+		 */
 	}
 }

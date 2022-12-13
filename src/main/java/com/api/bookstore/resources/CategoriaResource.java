@@ -2,6 +2,8 @@ package com.api.bookstore.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +35,7 @@ public class CategoriaResource {
 		CategoriaDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
 
 	@GetMapping
 	public ResponseEntity<Page<CategoriaDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -47,7 +50,7 @@ public class CategoriaResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<CategoriaDTO> create(@RequestBody CategoriaDTO obj) {
+	public ResponseEntity<CategoriaDTO> create(@Valid @RequestBody CategoriaDTO obj) {
 		obj = service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
